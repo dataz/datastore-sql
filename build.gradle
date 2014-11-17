@@ -1,7 +1,7 @@
 /*
  * dataSet - Test Support For Datastores.
  *
- * Copyright (C) 2014-2014 marko (http://fail-early.com/contact)
+ * Copyright (C) 2014-2014 Marko Umek (http://fail-early.com/contact)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -19,12 +19,11 @@
 apply plugin: 'java'
 apply plugin: 'maven'
 
-sourceCompatibility = 1.8
-targetCompatibility = 1.8
+sourceCompatibility = 1.7
+targetCompatibility = 1.7
 
 version = '0.1-SNAPSHOT'
 group = 'org.failearly.dataset'
-archivesBaseName='datastore-sql'
 
 repositories {
     mavenCentral()
@@ -34,4 +33,46 @@ repositories {
 dependencies {
     compile group: 'org.failearly.dataset', name: 'dataset-core', version: '+'
     testCompile group: 'org.slf4j', name: 'slf4j-simple', version: '1.7.7'
+}
+
+
+test {
+    scanForTestClasses = false;
+    include 'org/failearly/dataset/**/*Test.class'
+}
+
+javadoc {
+    failOnError = false
+
+    exclude '**/internal/**'
+
+
+    options {
+        memberLevel = JavadocMemberLevel.PROTECTED
+        title = "Fail Early DataSet ${project.name.capitalize()} API - Version ${project.version}"
+        windowTitle = title
+        linkSource = true
+        // TODO : Update stylesheet
+        // stylesheetFile = "${rootDir}/doc/css/stylesheet.css" as File
+        footer = 'Copyright (C) 2014 <a href="http://fail-early.com">Fail Early</a>. All rights reserved.'
+    }
+}
+
+task sourcesJar(type: Jar, dependsOn:[classes, test]) {
+    classifier = 'sources'
+    from sourceSets.main.allSource
+}
+
+task javadocJar(type: Jar, dependsOn:[javadoc, test]) {
+    classifier = 'javadoc'
+    from javadoc.destinationDir
+}
+
+jar {
+    dependsOn test
+}
+
+artifacts {
+    archives sourcesJar
+    archives javadocJar
 }
