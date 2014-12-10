@@ -21,14 +21,9 @@ package org.failearly.dataset.datastore.sql;
 
 import org.failearly.dataset.datastore.DataStoreException;
 import org.failearly.dataset.datastore.internal.AbstractSqlDataStore;
-import org.failearly.dataset.datastore.internal.connection.ConnectionHolder;
-import org.failearly.dataset.util.ClassUtils;
-import org.failearly.dataset.util.ExtendedProperties;
 
 import javax.sql.DataSource;
 import java.sql.Connection;
-import java.sql.Driver;
-import java.sql.DriverManager;
 
 /**
  * A SQL DataStore Implementation based on {@link javax.sql.DataSource}. To be used with a DI container like Spring.

@@ -27,7 +27,7 @@ import org.failearly.dataset.datastore.sql.SqlDataStore;
  */
 public class SqlDataStoreFactory implements DataStoreFactory<SqlDataStore> {
     @Override
-    public DataStore createDataStore(SqlDataStore annotation) {
+    public DataStore createDataStore(SqlDataStore annotation, Object context) {
         return SqlDataStores.createDataStore(annotation);
     }
 }

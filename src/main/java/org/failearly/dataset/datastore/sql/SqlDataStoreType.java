@@ -28,7 +28,7 @@ import org.failearly.dataset.datastore.internal.SqlDataStores;
  */
 public final class SqlDataStoreType implements DataStoreType {
     @Override
-    public DataStore createDataStore(DataStoreDefinition annotation) {
+    public DataStore createDataStore(DataStoreDefinition annotation, Object context) {
         return SqlDataStores.createDataStore(annotation);
     }
 }
