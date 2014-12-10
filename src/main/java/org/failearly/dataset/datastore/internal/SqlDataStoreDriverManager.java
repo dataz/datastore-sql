@@ -18,10 +18,7 @@
  */
 package org.failearly.dataset.datastore.internal;
 
-import org.failearly.dataset.datastore.DataSetResource;
 import org.failearly.dataset.datastore.internal.connection.ConnectionHolder;
-import org.failearly.dataset.datastore.support.SimpleFileTransactionalSupportDataStoreBase;
-import org.failearly.dataset.simplefile.SimpleFileStatement;
 import org.failearly.dataset.util.ClassUtils;
 import org.failearly.dataset.util.ExtendedProperties;
 
@@ -41,17 +38,27 @@ public final class SqlDataStoreDriverManager extends AbstractSqlDataStore {
 
     @Override
     protected void doInitialize(ExtendedProperties properties) {
-        final String driverClass = properties.getMandatoryProperty("datastore.sql.driver");
-        this.url = properties.getProperty("datastore.sql.url");
+        final String driverClass = properties.getMandatoryProperty(DATASTORE_SQL_DRIVER);
+        this.url = properties.getMandatoryProperty(DATASTORE_SQL_URL);
+        final String user = properties.getProperty(DATASTORE_SQL_USER,"");
+        final String password = properties.getProperty(DATASTORE_SQL_PASSWORD,"");
         ClassUtils.loadClass(Driver.class, driverClass);
         connectionHolder=ConnectionHolder.create(
-                with.producer("Get connection", () -> DriverManager.getConnection(url, properties))
+                with.producer("Get connection to url=" + url + ", user='" + user + "'", () -> DriverManager.getConnection(url, user, password))
             );
     }
 
     @Override
     protected Connection getConnection() {
-        return connectionHolder.fetch();
+        return connectionHolder.reserve();
     }
 
+    @Override
+    public void dispose() {
+        try {
+            super.dispose();
+        } finally {
+            connectionHolder.dispose();
+        }
+    }
 }

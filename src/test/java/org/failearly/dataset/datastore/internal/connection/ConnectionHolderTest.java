@@ -46,7 +46,7 @@ public class ConnectionHolderTest {
     @Test
     public void fetchConnection() throws Exception {
         // act / when
-        final Connection fetchedConnection = connectionHolder.fetch();
+        final Connection fetchedConnection = connectionHolder.reserve();
 
         // assert / then
         assertThat("Fetched connection?", fetchedConnection, Matchers.notNullValue());
@@ -57,32 +57,32 @@ public class ConnectionHolderTest {
     @Test(expected = RuntimeException.class)
     public void fetchConnectionTwice() throws Exception {
         // arrange / given
-        connectionHolder.fetch();
+        connectionHolder.reserve();
 
         // act / when
-        connectionHolder.fetch();
+        connectionHolder.reserve();
     }
 
     @Test
     public void closeFetchedConnection() throws Exception {
-        final Connection fetchedConnection = connectionHolder.fetch();
+        final Connection fetchedConnection = connectionHolder.reserve();
 
         // act / when
         fetchedConnection.close();
 
         // assert / then
         assertTrue("Is closed?", fetchedConnection.isClosed());
-        Mockito.verify(this.connectionHolder).back(this.connection);
+        Mockito.verify(this.connectionHolder).release(this.connection);
         Mockito.verifyZeroInteractions(this.connection);
     }
 
     @Test
     public void fetchTwiceButWithClose() throws Exception {
-        final Connection fetchedConnection = connectionHolder.fetch();
+        final Connection fetchedConnection = connectionHolder.reserve();
 
         // act / when
         fetchedConnection.close();
-        final Connection fetchedConnection2 = connectionHolder.fetch();
+        final Connection fetchedConnection2 = connectionHolder.reserve();
 
         // assert / then
         assertThat("Fetched connection?", fetchedConnection2, Matchers.notNullValue());
@@ -92,7 +92,7 @@ public class ConnectionHolderTest {
     @Test
     public void delegation() throws Exception {
         // arrange / given
-        final Connection fetchedConnection = connectionHolder.fetch();
+        final Connection fetchedConnection = connectionHolder.reserve();
 
         // act / when
         fetchedConnection.createStatement();

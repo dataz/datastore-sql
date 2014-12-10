@@ -20,6 +20,7 @@ package org.failearly.dataset.datastore.internal.connection;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 /**
  * ReservedConnection wraps the actually connection and override {@link #close()}  for returning the actually connection to
@@ -35,8 +36,28 @@ final class ReservedConnection extends DelegateConnection {
     }
 
     @Override
-    public void close() throws SQLException {
-        this.connectionHolder.back(disposeDelegation());
+    public void close() {
+        this.connectionHolder.release(removeConnectionReference());
+    }
+
+
+    private Statement wrapStatement(Statement statement) {
+        return new DelegateStatement(statement, this);
+    }
+
+    @Override
+    public Statement createStatement() throws SQLException {
+        return wrapStatement(super.createStatement());
+    }
+
+    @Override
+    public Statement createStatement(int resultSetType, int resultSetConcurrency) throws SQLException {
+        return wrapStatement(super.createStatement(resultSetType, resultSetConcurrency));
+    }
+
+    @Override
+    public Statement createStatement(int resultSetType, int resultSetConcurrency, int resultSetHoldability) throws SQLException {
+        return wrapStatement(super.createStatement(resultSetType, resultSetConcurrency, resultSetHoldability));
     }
 
     @Override

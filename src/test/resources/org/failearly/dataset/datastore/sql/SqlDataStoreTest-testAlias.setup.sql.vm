@@ -1,0 +1,7 @@
+#foreach( $u in $user )
+    #set($cuid=$id.next())
+    INSERT INTO PUBLIC.USERS (ID,NAME) VALUES ($cuid,'$u');
+    #foreach($a in $alias)
+        INSERT INTO PUBLIC.ALIASES (ID,UID,NAME) VALUES ($id.next(),$cuid,'$a');
+    #end
+#end

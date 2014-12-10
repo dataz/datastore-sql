@@ -20,6 +20,7 @@ package org.failearly.dataset.datastore.internal;
 
 import org.failearly.dataset.DataStoreDefinition;
 import org.failearly.dataset.datastore.DataStore;
+import org.failearly.dataset.datastore.DataStoreBase;
 import org.failearly.dataset.datastore.sql.SqlDataStore;
 
 /**
@@ -30,7 +31,10 @@ public final class SqlDataStores {
     }
 
     public static DataStore createDataStore(SqlDataStore dataStoreAnnotation) {
-        return new SqlDataStoreDriverManager(dataStoreAnnotation.id(), dataStoreAnnotation.config());
+        final DataStoreBase sqlDataStore = new SqlDataStoreDriverManager(dataStoreAnnotation.id(), dataStoreAnnotation.config());
+        sqlDataStore.setSetupSuffix(dataStoreAnnotation.setupSuffix());
+        sqlDataStore.setCleanupSuffix(dataStoreAnnotation.cleanupSuffix());
+        return sqlDataStore;
     }
 
     public static DataStore createDataStore(DataStoreDefinition annotation) {

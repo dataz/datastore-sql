@@ -19,6 +19,8 @@
 package org.failearly.dataset.datastore.internal.connection;
 
 import org.failearly.dataset.util.With;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.sql.Connection;
 
@@ -26,6 +28,8 @@ import java.sql.Connection;
  * ConnectionHolder protects the connection instance against access of multiple threads.
  */
 public class ConnectionHolder {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(ConnectionHolder.class);
 
     private volatile Connection connection;
 
@@ -37,11 +41,12 @@ public class ConnectionHolder {
         return new ConnectionHolder(connection);
     }
 
-    public Connection fetch() {
+    public Connection reserve() {
+        LOGGER.debug("Reserve reserved: {}", this.connection);
         checkThreadAccess();
-        final Connection connection=this.connection;
+        final ReservedConnection reservedConnection = new ReservedConnection(this.connection, this);
         this.connection = null;
-        return new ReservedConnection(connection, this);
+        return reservedConnection;
     }
 
     private void checkThreadAccess() {
@@ -50,7 +55,8 @@ public class ConnectionHolder {
         }
     }
 
-    void back(Connection connection) {
+    void release(Connection connection) {
+        LOGGER.debug("Release connection: {}", connection);
         if( connection==null ) {
             throw new IllegalArgumentException("Attempt to close a connection twice.");
         }
@@ -58,12 +64,9 @@ public class ConnectionHolder {
     }
 
     public void dispose() {
-        With.ignore().action("Close connection", new With.Action() {
-            @Override
-            public void apply() throws Exception {
-                if( connection!=null ) {
-                    connection.close();
-                }
+        With.ignore().action("Close actually connection", () -> {
+            if( connection!=null ) {
+                connection.close();
             }
         });
     }

@@ -18,29 +18,56 @@
  */
 package org.failearly.dataset.datastore.sql;
 
+import org.failearly.dataset.DataSet;
+import org.failearly.dataset.DataStoreSetup;
 import org.failearly.dataset.NoDataSet;
+import org.failearly.dataset.SuppressCleanup;
 import org.failearly.dataset.config.DataSetConstants;
 import org.failearly.dataset.datastore.DataStore;
 import org.failearly.dataset.datastore.DataStores;
+import org.failearly.dataset.datastore.internal.AbstractSqlDataStore;
 import org.failearly.dataset.datastore.internal.SqlDataStoreDriverManager;
+import org.failearly.dataset.generator.Limit;
+import org.failearly.dataset.generator.ListGenerator;
+import org.failearly.dataset.generator.RangeGenerator;
 import org.failearly.dataset.junit4.AbstractDataSetBaseTest;
-import org.junit.BeforeClass;
 import org.junit.Test;
-import static org.junit.Assert.*;
-import static org.hamcrest.Matchers.*;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Lazy;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
+import org.springframework.core.env.Environment;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.datasource.DriverManagerDataSource;
+import org.springframework.jdbc.datasource.SingleConnectionDataSource;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.jdbc.JdbcTestUtils;
+
+import javax.sql.DataSource;
+
+import static org.hamcrest.Matchers.instanceOf;
+import static org.hamcrest.Matchers.is;
+import static org.junit.Assert.assertThat;
 
 /**
  * SqlDataStoreTest contains tests for SqlDataStore.
  */
+@SuppressWarnings("SpringJavaAutowiringInspection")
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(classes = SqlDataStoreTest.Config.class)
 @SqlDataStore
+@DataStoreSetup(setup = "H2-Test-DB-schema.sql", failOnError = false)
 public class SqlDataStoreTest extends AbstractDataSetBaseTest {
 
-    @BeforeClass
-    public static void setUp() throws Exception {
-        // DataSetProperties.reload();
-    }
+    @Autowired
+    private JdbcTemplate jdbcTemplate;
 
-    @Test @NoDataSet
+    @Test
+    @NoDataSet
     public void defaultSqlDataStore() throws Exception {
         final DataStore dataStore = DataStores.getDefaultDataStore(this.getClass());
         assertThat("Associated DataStore type?", dataStore, is(instanceOf(SqlDataStoreDriverManager.class)));
@@ -48,5 +75,56 @@ public class SqlDataStoreTest extends AbstractDataSetBaseTest {
         assertThat("DataStore config?", dataStore.getConfig(), is("/sql-datastore.properties"));
         assertThat("DataStore setup suffix?", dataStore.getSetupSuffix(), is("setup.sql"));
         assertThat("DataStore cleanup suffix?", dataStore.getCleanupSuffix(), is("cleanup.sql"));
+    }
+
+    @Test
+    @DataSet()
+    public void testUsers() throws Exception {
+        // assert / then
+        int numUsers = JdbcTestUtils.countRowsInTable(this.jdbcTemplate, "PUBLIC.USERS");
+        assertThat("#User(s)?", numUsers, is(1));
+    }
+
+    @Test
+    @DataSet(setup = "SqlDataStoreTest-testAlias.setup.sql.vm", cleanup = "SqlDataStoreTest-testAlias.cleanup.sql")
+    @RangeGenerator(name = "id", limit = Limit.UNLIMITED, start = 1)
+    @ListGenerator(name = "user", values = {"Marko", "Loddar", "Frodo"})
+    @ListGenerator(name = "alias", values = {"Kurt", "Bodo", "Bilbo"})
+    public void testAlias() throws Exception {
+        // assert / then
+        int numUsers = JdbcTestUtils.countRowsInTable(this.jdbcTemplate, "PUBLIC.USERS");
+        int numAliases = JdbcTestUtils.countRowsInTable(this.jdbcTemplate, "PUBLIC.ALIASES");
+
+        assertThat("#Users?", numUsers, is(3));
+        assertThat("#Aliases?", numAliases, is(9));
+    }
+
+    @Configuration
+    @Lazy
+    @PropertySource(value = {"classpath:/sql-datastore.properties"})
+    @SuppressWarnings("SpringJavaAutowiredMembersInspection")
+    public static class Config {
+        @Autowired
+        private Environment env;
+
+        @Bean
+        public static PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer() {
+            return new PropertySourcesPlaceholderConfigurer();
+        }
+
+        @Bean
+        public DataSource dataSource() {
+            final DriverManagerDataSource dataSource = new DriverManagerDataSource();
+            dataSource.setDriverClassName(env.getProperty(AbstractSqlDataStore.DATASTORE_SQL_DRIVER));
+            dataSource.setUrl(env.getProperty(AbstractSqlDataStore.DATASTORE_SQL_URL));
+            dataSource.setUsername(env.getProperty(AbstractSqlDataStore.DATASTORE_SQL_USER));
+            dataSource.setPassword(env.getProperty(AbstractSqlDataStore.DATASTORE_SQL_PASSWORD));
+            return dataSource;
+        }
+
+        @Bean
+        public JdbcTemplate jdbcTemplate(DataSource dataSource) {
+            return new JdbcTemplate(dataSource);
+        }
     }
 }

@@ -318,7 +318,7 @@ public class DelegateConnection implements Connection {
 
     @Override
     public String toString() {
-        return getInnerMostConnection().toString();
+        return "DelegateConnection[" + getInnerMostConnection().toString() + "]";
     }
 
     Connection getInnerMostConnection() {
@@ -327,7 +327,7 @@ public class DelegateConnection implements Connection {
         return this.connection;
     }
 
-    Connection disposeDelegation() {
+    Connection removeConnectionReference() {
         final Connection con=getInnerMostConnection();
         this.connection = null;
         return con;

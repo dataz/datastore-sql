@@ -31,6 +31,11 @@ import java.sql.Statement;
  */
 public abstract class AbstractSqlDataStore extends SimpleFileTransactionalSupportDataStoreBase<Statement> {
 
+    public static final String DATASTORE_SQL_DRIVER = "jdbc.driver";
+    public static final String DATASTORE_SQL_URL = "jdbc.url";
+    public static final String DATASTORE_SQL_USER = "jdbc.user";
+    public static final String DATASTORE_SQL_PASSWORD = "jdbc.password";
+
     protected AbstractSqlDataStore(String dataStoreId, String dataStoreConfig) {
         super(dataStoreId, dataStoreConfig);
     }
@@ -38,8 +43,8 @@ public abstract class AbstractSqlDataStore extends SimpleFileTransactionalSuppor
     protected AbstractSqlDataStore() {
     }
 
-    private static Connection getConnection(Statement statement) {
-        return with.producer("Get connection from statement", statement::getConnection);
+    private static Connection getConnectionFromCurrentStatement(Statement statement) {
+        return with.producer("Get connection from current statement", statement::getConnection);
     }
 
     /**
@@ -71,14 +76,13 @@ public abstract class AbstractSqlDataStore extends SimpleFileTransactionalSuppor
     }
 
     @Override
-    protected void closeTransaction(Statement sqlStatement) throws Exception {
-        final Connection connection=getConnection(sqlStatement);
+    protected void closeTransaction(Statement sqlStatement) {
+        final Connection connection = getConnectionFromCurrentStatement(sqlStatement);
         try {
-            connection.close();
             sqlStatement.close();
-        } finally {
-            assert connection.isClosed() : "Connection must be closed.";
-            assert sqlStatement.isClosed() : "Statement must be closed.";
+            connection.close();
+        } catch(Exception ex) {
+            LOGGER.warn("(Ignored) Caught exception while closing transaction", ex);
         }
     }
 }

@@ -31,13 +31,16 @@ repositories {
 }
 
 dependencies {
-    // project(':dataset')
-    compile group: 'org.failearly.dataset', name: 'dataset-core', version: '+'
+    project(':dataset')
+    // compile group: 'org.failearly.dataset', name: 'dataset-core', version: '+'
     testCompile group: 'org.slf4j', name: 'slf4j-simple', version: '1.7.7'
     testCompile group: 'org.hamcrest', name:'hamcrest-library', version: '1.+'
     testCompile group: 'org.mockito', name:'mockito-core', version: '1.9.5'
     testCompile group: 'com.h2database', name:'h2', version: '1.4.+'
-
+    testCompile group: 'org.springframework', name: 'spring-core', version: '4.1.1.RELEASE'
+    testCompile group: 'org.springframework', name: 'spring-context', version: '4.1.1.RELEASE'
+    testCompile group: 'org.springframework', name: 'spring-test', version: '4.1.1.RELEASE'
+    testCompile group: 'org.springframework', name: 'spring-jdbc', version: '4.1.1.RELEASE'
 }
 
 
