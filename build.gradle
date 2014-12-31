@@ -16,71 +16,12 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
-apply plugin: 'java'
-apply plugin: 'maven'
-
-sourceCompatibility = 1.8
-targetCompatibility = 1.8
-
-version = '0.1-SNAPSHOT'
-group = 'org.failearly.dataset'
-
-repositories {
-    mavenCentral()
-    mavenLocal()
-}
-
 dependencies {
     project(':dataset')
     // compile group: 'org.failearly.dataset', name: 'dataset-core', version: '+'
-    testCompile group: 'org.slf4j', name: 'slf4j-simple', version: '1.7.7'
-    testCompile group: 'org.hamcrest', name:'hamcrest-library', version: '1.+'
-    testCompile group: 'org.mockito', name:'mockito-core', version: '1.9.5'
     testCompile group: 'com.h2database', name:'h2', version: '1.4.+'
     testCompile group: 'org.springframework', name: 'spring-core', version: '4.1.1.RELEASE'
     testCompile group: 'org.springframework', name: 'spring-context', version: '4.1.1.RELEASE'
     testCompile group: 'org.springframework', name: 'spring-test', version: '4.1.1.RELEASE'
     testCompile group: 'org.springframework', name: 'spring-jdbc', version: '4.1.1.RELEASE'
-}
-
-
-test {
-    scanForTestClasses = false;
-    include 'org/failearly/dataset/**/*Test.class'
-}
-
-javadoc {
-    failOnError = false
-
-    exclude '**/internal/**'
-
-
-    options {
-        memberLevel = JavadocMemberLevel.PROTECTED
-        title = "Fail Early DataSet ${project.name.capitalize()} API - Version ${project.version}"
-        windowTitle = title
-        linkSource = true
-        // TODO : Update stylesheet
-        // stylesheetFile = "${rootDir}/doc/css/stylesheet.css" as File
-        footer = 'Copyright (C) 2014 <a href="http://fail-early.com">Fail Early</a>. All rights reserved.'
-    }
-}
-
-task sourcesJar(type: Jar, dependsOn:[classes, test]) {
-    classifier = 'sources'
-    from sourceSets.main.allSource
-}
-
-task javadocJar(type: Jar, dependsOn:[javadoc, test]) {
-    classifier = 'javadoc'
-    from javadoc.destinationDir
-}
-
-jar {
-    dependsOn test
-}
-
-artifacts {
-    archives sourcesJar
-    archives javadocJar
 }
