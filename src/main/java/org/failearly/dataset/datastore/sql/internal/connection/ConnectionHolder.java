@@ -16,7 +16,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
-package org.failearly.dataset.datastore.internal.connection;
+package org.failearly.dataset.datastore.sql.internal.connection;
 
 import org.failearly.dataset.util.With;
 import org.slf4j.Logger;
@@ -42,7 +42,7 @@ public class ConnectionHolder {
     }
 
     public Connection reserve() {
-        LOGGER.debug("Reserve reserved: {}", this.connection);
+        LOGGER.debug("Reserve connection: {}", this.connection);
         checkThreadAccess();
         final ReservedConnection reservedConnection = new ReservedConnection(this.connection, this);
         this.connection = null;

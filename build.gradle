@@ -17,7 +17,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 dependencies {
-    project(':dataset')
+    compile project(':dataset')
     // compile group: 'org.failearly.dataset', name: 'dataset-core', version: '+'
     testCompile group: 'com.h2database', name:'h2', version: '1.4.+'
     testCompile group: 'org.springframework', name: 'spring-core', version: '4.1.1.RELEASE'

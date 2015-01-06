@@ -18,11 +18,9 @@
  */
 package org.failearly.dataset.datastore.sql;
 
-import org.failearly.dataset.DataStoreDefinition;
 import org.failearly.dataset.config.DataSetConstants;
 import org.failearly.dataset.datastore.DataStoreFactoryDefinition;
-import org.failearly.dataset.datastore.DefaultDataStoreFactory;
-import org.failearly.dataset.datastore.internal.SqlDataStoreFactory;
+import org.failearly.dataset.datastore.sql.internal.SqlDataStoreFactory;
 
 import java.lang.annotation.*;
 

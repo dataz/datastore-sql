@@ -16,9 +16,9 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
-package org.failearly.dataset.datastore.internal;
+package org.failearly.dataset.datastore.sql.internal;
 
-import org.failearly.dataset.datastore.internal.connection.ConnectionHolder;
+import org.failearly.dataset.datastore.sql.internal.connection.ConnectionHolder;
 import org.failearly.dataset.util.ClassUtils;
 import org.failearly.dataset.util.ExtendedProperties;
 

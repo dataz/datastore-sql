@@ -18,19 +18,18 @@
  */
 package org.failearly.dataset.datastore.sql;
 
-import org.failearly.dataset.DataSet;
-import org.failearly.dataset.DataStoreSetup;
-import org.failearly.dataset.NoDataSet;
-import org.failearly.dataset.SuppressCleanup;
+import org.failearly.dataset.*;
 import org.failearly.dataset.config.DataSetConstants;
 import org.failearly.dataset.datastore.DataStore;
 import org.failearly.dataset.datastore.DataStores;
-import org.failearly.dataset.datastore.internal.AbstractSqlDataStore;
-import org.failearly.dataset.datastore.internal.SqlDataStoreDriverManager;
+import org.failearly.dataset.datastore.sql.internal.AbstractSqlDataStore;
+import org.failearly.dataset.datastore.sql.internal.SqlDataStoreDriverManager;
 import org.failearly.dataset.generator.Limit;
 import org.failearly.dataset.generator.ListGenerator;
 import org.failearly.dataset.generator.RangeGenerator;
 import org.failearly.dataset.junit4.AbstractDataSetBaseTest;
+import org.junit.AfterClass;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,7 +41,6 @@ import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.core.env.Environment;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
-import org.springframework.jdbc.datasource.SingleConnectionDataSource;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.jdbc.JdbcTestUtils;
@@ -59,12 +57,20 @@ import static org.junit.Assert.assertThat;
 @SuppressWarnings("SpringJavaAutowiringInspection")
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = SqlDataStoreTest.Config.class)
+
+// dataSet annotations
 @SqlDataStore
 @DataStoreSetup(setup = "H2-Test-DB-schema.sql", failOnError = false)
 public class SqlDataStoreTest extends AbstractDataSetBaseTest {
 
     @Autowired
     private JdbcTemplate jdbcTemplate;
+
+    @BeforeClass
+    @AfterClass
+    public static void resetDataStores() throws Exception {
+        DataStores.reset();
+    }
 
     @Test
     @NoDataSet
@@ -78,8 +84,8 @@ public class SqlDataStoreTest extends AbstractDataSetBaseTest {
     }
 
     @Test
-    @DataSet()
-    public void testUsers() throws Exception {
+    @DataSet
+    public void useDataSetDefaultResources() throws Exception {
         // assert / then
         int numUsers = JdbcTestUtils.countRowsInTable(this.jdbcTemplate, "PUBLIC.USERS");
         assertThat("#User(s)?", numUsers, is(1));
@@ -90,7 +96,7 @@ public class SqlDataStoreTest extends AbstractDataSetBaseTest {
     @RangeGenerator(name = "id", limit = Limit.UNLIMITED, start = 1)
     @ListGenerator(name = "user", values = {"Marko", "Loddar", "Frodo"})
     @ListGenerator(name = "alias", values = {"Kurt", "Bodo", "Bilbo"})
-    public void testAlias() throws Exception {
+    public void useDataSetWithSettings() throws Exception {
         // assert / then
         int numUsers = JdbcTestUtils.countRowsInTable(this.jdbcTemplate, "PUBLIC.USERS");
         int numAliases = JdbcTestUtils.countRowsInTable(this.jdbcTemplate, "PUBLIC.ALIASES");

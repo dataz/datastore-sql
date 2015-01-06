@@ -1,0 +1,1 @@
+delete from USERS where ID=1;

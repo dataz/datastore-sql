@@ -21,7 +21,7 @@ package org.failearly.dataset.datastore.sql;
 import org.failearly.dataset.DataStoreDefinition;
 import org.failearly.dataset.datastore.DataStore;
 import org.failearly.dataset.datastore.DataStoreType;
-import org.failearly.dataset.datastore.internal.SqlDataStores;
+import org.failearly.dataset.datastore.sql.internal.SqlDataStores;
 
 /**
  * SqlDataStoreType could be used for {@link org.failearly.dataset.DataStoreDefinition#type()}.

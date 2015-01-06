@@ -16,7 +16,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
-package org.failearly.dataset.datastore.internal;
+package org.failearly.dataset.datastore.sql.internal;
 
 import org.failearly.dataset.DataStoreDefinition;
 import org.failearly.dataset.datastore.DataStore;
@@ -24,7 +24,7 @@ import org.failearly.dataset.datastore.DataStoreBase;
 import org.failearly.dataset.datastore.sql.SqlDataStore;
 
 /**
- * SqlDataStores is responsible for ...
+ * SqlDataStores is a factory for creating the actually
  */
 public final class SqlDataStores {
     private SqlDataStores() {

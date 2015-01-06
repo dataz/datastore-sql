@@ -17,7 +17,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-package org.failearly.dataset.datastore.internal.connection;
+package org.failearly.dataset.datastore.sql.internal.connection;
 
 import org.hamcrest.Matchers;
 import org.junit.Before;
