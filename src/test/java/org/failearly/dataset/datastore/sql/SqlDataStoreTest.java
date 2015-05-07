@@ -19,7 +19,7 @@
 package org.failearly.dataset.datastore.sql;
 
 import org.failearly.dataset.*;
-import org.failearly.dataset.config.DataSetConstants;
+import org.failearly.dataset.config.Constants;
 import org.failearly.dataset.datastore.DataStore;
 import org.failearly.dataset.datastore.DataStores;
 import org.failearly.dataset.datastore.sql.internal.AbstractSqlDataStore;
@@ -27,7 +27,7 @@ import org.failearly.dataset.datastore.sql.internal.SqlDataStoreDriverManager;
 import org.failearly.dataset.generator.Limit;
 import org.failearly.dataset.generator.ListGenerator;
 import org.failearly.dataset.generator.RangeGenerator;
-import org.failearly.dataset.junit4.AbstractDataSetBaseTest;
+import org.failearly.dataset.junit4.AbstractDataSetTest;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -61,7 +61,7 @@ import static org.junit.Assert.assertThat;
 // dataSet annotations
 @SqlDataStore
 @DataStoreSetup(setup = "H2-Test-DB-schema.sql", failOnError = false)
-public class SqlDataStoreTest extends AbstractDataSetBaseTest {
+public class SqlDataStoreTest extends AbstractDataSetTest {
 
     @Autowired
     private JdbcTemplate jdbcTemplate;
@@ -77,7 +77,7 @@ public class SqlDataStoreTest extends AbstractDataSetBaseTest {
     public void defaultSqlDataStore() throws Exception {
         final DataStore dataStore = DataStores.getDefaultDataStore(this.getClass());
         assertThat("Associated DataStore type?", dataStore, is(instanceOf(SqlDataStoreDriverManager.class)));
-        assertThat("DataStore ID?", dataStore.getId(), is(DataSetConstants.DATASET_DEFAULT_DATASTORE_ID));
+        assertThat("DataStore ID?", dataStore.getId(), is(Constants.DATASET_DEFAULT_DATASTORE_ID));
         assertThat("DataStore config?", dataStore.getConfig(), is("/sql-datastore.properties"));
         assertThat("DataStore setup suffix?", dataStore.getSetupSuffix(), is("setup.sql"));
         assertThat("DataStore cleanup suffix?", dataStore.getCleanupSuffix(), is("cleanup.sql"));

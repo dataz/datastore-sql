@@ -18,7 +18,7 @@
  */
 package org.failearly.dataset.datastore.sql;
 
-import org.failearly.dataset.config.DataSetConstants;
+import org.failearly.dataset.config.Constants;
 import org.failearly.dataset.datastore.DataStoreFactoryDefinition;
 import org.failearly.dataset.datastore.sql.internal.SqlDataStoreFactory;
 
@@ -38,7 +38,7 @@ public @interface SqlDataStore {
      *
      * @return the (unique) data store id.
      */
-    String id() default DataSetConstants.DATASET_DEFAULT_DATASTORE_ID;
+    String id() default Constants.DATASET_DEFAULT_DATASTORE_ID;
 
     /**
      * The datastore configuration file will be used by the actually DataStore Implementation. So what's inside these configuration property file depends

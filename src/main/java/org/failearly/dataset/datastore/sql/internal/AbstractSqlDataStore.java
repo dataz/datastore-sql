@@ -18,8 +18,8 @@
  */
 package org.failearly.dataset.datastore.sql.internal;
 
-import org.failearly.dataset.datastore.DataSetResource;
 import org.failearly.dataset.datastore.support.SimpleFileTransactionalSupportDataStoreBase;
+import org.failearly.dataset.resource.DataResource;
 import org.failearly.dataset.simplefile.SimpleFileStatement;
 
 import java.sql.Connection;
@@ -54,7 +54,7 @@ public abstract class AbstractSqlDataStore extends SimpleFileTransactionalSuppor
     protected abstract Connection getConnection();
 
     @Override
-    protected Statement startTransaction(DataSetResource dataSetResource, boolean useTransaction) throws SQLException {
+    protected Statement startTransaction(DataResource dataSetResource, boolean useTransaction) throws SQLException {
         final Connection connection = getConnection();
         connection.setAutoCommit(!useTransaction);
         return connection.createStatement();

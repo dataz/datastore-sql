@@ -20,7 +20,7 @@
 package org.failearly.dataset.datastore.sql;
 
 import org.failearly.dataset.*;
-import org.failearly.dataset.config.DataSetConstants;
+import org.failearly.dataset.config.Constants;
 import org.failearly.dataset.datastore.DataStore;
 import org.failearly.dataset.datastore.DataStores;
 import org.failearly.dataset.datastore.sql.internal.AbstractSqlDataStore;
@@ -28,9 +28,8 @@ import org.failearly.dataset.datastore.sql.internal.SqlDataStoreDriverManager;
 import org.failearly.dataset.generator.Limit;
 import org.failearly.dataset.generator.ListGenerator;
 import org.failearly.dataset.generator.RangeGenerator;
-import org.failearly.dataset.junit4.AbstractDataSetBaseTest;
+import org.failearly.dataset.junit4.AbstractDataSetTest;
 import org.junit.AfterClass;
-import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -61,7 +60,7 @@ import static org.hamcrest.Matchers.*;
 // dataSet annotations
 @DataStoreDefinition(setupSuffix = "setup.sql", cleanupSuffix = "cleanup.sql")
 @DataStoreSetup(setup = "H2-Test-DB-schema.sql", failOnError = false)
-public class SqlDataStoreTypeTest extends AbstractDataSetBaseTest {
+public class SqlDataStoreTypeTest extends AbstractDataSetTest {
 
     @Autowired
     private JdbcTemplate jdbcTemplate;
@@ -76,7 +75,7 @@ public class SqlDataStoreTypeTest extends AbstractDataSetBaseTest {
     public void defaultSqlDataStore() throws Exception {
         final DataStore dataStore = DataStores.getDefaultDataStore(this.getClass());
         assertThat("Associated DataStore type?", dataStore, is(instanceOf(SqlDataStoreDriverManager.class)));
-        assertThat("DataStore ID?", dataStore.getId(), is(DataSetConstants.DATASET_DEFAULT_DATASTORE_ID));
+        assertThat("DataStore ID?", dataStore.getId(), is(Constants.DATASET_DEFAULT_DATASTORE_ID));
         assertThat("DataStore config?", dataStore.getConfig(), is("/datastore.properties"));
         assertThat("DataStore setup suffix?", dataStore.getSetupSuffix(), is("setup.sql"));
         assertThat("DataStore cleanup suffix?", dataStore.getCleanupSuffix(), is("cleanup.sql"));
