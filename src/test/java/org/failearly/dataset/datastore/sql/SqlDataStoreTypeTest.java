@@ -71,7 +71,7 @@ public class SqlDataStoreTypeTest extends AbstractDataSetTest {
     }
 
     @Test
-    @NoDataSet
+    @SuppressDataSet
     public void defaultSqlDataStore() throws Exception {
         final DataStore dataStore = DataStores.getDefaultDataStore(this.getClass());
         assertThat("Associated DataStore type?", dataStore, is(instanceOf(SqlDataStoreDriverManager.class)));
