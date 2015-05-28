@@ -1,7 +1,7 @@
 /*
  * dataSet - Test Support For Data Stores.
  *
- * Copyright (C) 2014-2014 Marko Umek (http://fail-early.com/contact)
+ * Copyright (C) 2014-2015 Marko Umek (http://fail-early.com/contact)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -19,8 +19,7 @@
 package org.failearly.dataset.datastore.sql.internal;
 
 import org.failearly.dataset.datastore.sql.internal.connection.ConnectionHolder;
-import org.failearly.dataset.util.ClassUtils;
-import org.failearly.dataset.util.ExtendedProperties;
+import org.failearly.dataset.util.*;
 
 import java.sql.*;
 
@@ -42,7 +41,7 @@ public final class SqlDataStoreDriverManager extends AbstractSqlDataStore {
         this.url = properties.getMandatoryProperty(DATASTORE_SQL_URL);
         final String user = properties.getProperty(DATASTORE_SQL_USER,"");
         final String password = properties.getProperty(DATASTORE_SQL_PASSWORD,"");
-        ClassUtils.loadClass(Driver.class, driverClass);
+        org.failearly.dataset.util.ClassLoader.loadClass(Driver.class, driverClass);
         connectionHolder=ConnectionHolder.create(
                 with.producer("Get connection to url=" + url + ", user='" + user + "'", () -> DriverManager.getConnection(url, user, password))
             );
