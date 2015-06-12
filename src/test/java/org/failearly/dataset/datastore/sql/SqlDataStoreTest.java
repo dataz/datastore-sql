@@ -1,7 +1,7 @@
 /*
  * dataSet - Test Support For Data Stores.
  *
- * Copyright (C) 2014-2014 Marko Umek (http://fail-early.com/contact)
+ * Copyright (C) 2014-2015 Marko Umek (http://fail-early.com/contact)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -24,9 +24,9 @@ import org.failearly.dataset.datastore.DataStore;
 import org.failearly.dataset.datastore.DataStores;
 import org.failearly.dataset.datastore.sql.internal.AbstractSqlDataStore;
 import org.failearly.dataset.datastore.sql.internal.SqlDataStoreDriverManager;
-import org.failearly.dataset.generator.Limit;
-import org.failearly.dataset.generator.ListGenerator;
-import org.failearly.dataset.generator.RangeGenerator;
+import org.failearly.dataset.template.generator.Limit;
+import org.failearly.dataset.template.generator.ListGenerator;
+import org.failearly.dataset.template.generator.RangeGenerator;
 import org.failearly.dataset.junit4.AbstractDataSetTest;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
