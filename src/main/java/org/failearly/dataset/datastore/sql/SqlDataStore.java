@@ -1,7 +1,7 @@
 /*
  * dataSet - Test Support For Data Stores.
  *
- * Copyright (C) 2014-2014 Marko Umek (http://fail-early.com/contact)
+ * Copyright (C) 2014-2015 Marko Umek (http://fail-early.com/contact)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -42,7 +42,7 @@ public @interface SqlDataStore {
 
     /**
      * The datastore configuration file will be used by the actually DataStore Implementation. So what's inside these configuration property file depends
-     * on the DataStore type. If you use multiple DataStoreDefinition's
+     * on the DataStore type.
      *
      * @return the datastore configuration file(name).
      */
