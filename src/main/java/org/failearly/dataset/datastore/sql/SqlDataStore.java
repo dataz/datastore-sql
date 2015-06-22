@@ -16,8 +16,10 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
+
 package org.failearly.dataset.datastore.sql;
 
+import org.failearly.dataset.AdhocDataStore;
 import org.failearly.dataset.config.Constants;
 import org.failearly.dataset.datastore.DataStoreFactoryDefinition;
 import org.failearly.dataset.datastore.sql.internal.SqlDataStoreFactory;
@@ -31,7 +33,7 @@ import java.lang.annotation.*;
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 @Repeatable(SqlDataStore.SqlDataStores.class)
-@DataStoreFactoryDefinition(dataStoreFactory = SqlDataStoreFactory.class)
+@DataStoreFactoryDefinition(factory = SqlDataStoreFactory.class)
 public @interface SqlDataStore {
     /**
      * If your tests uses multiple data stores, you must identify each data store.
@@ -53,7 +55,7 @@ public @interface SqlDataStore {
      *
      * @return suffix to be used for {@link org.failearly.dataset.DataSet#setup()} (if no setup resource is specified).
      *
-     * @see org.failearly.dataset.DataStoreDefinition#setupSuffix()
+     * @see AdhocDataStore#setupSuffix()
      */
     String setupSuffix() default "setup.sql";
 
@@ -62,7 +64,7 @@ public @interface SqlDataStore {
      *
      * @return suffix to be used for {@link org.failearly.dataset.DataSet#cleanup()} (if no cleanup resource is specified).
      *
-     * @see org.failearly.dataset.DataStoreDefinition#cleanupSuffix()
+     * @see AdhocDataStore#cleanupSuffix()
      */
     String cleanupSuffix() default "cleanup.sql";
 

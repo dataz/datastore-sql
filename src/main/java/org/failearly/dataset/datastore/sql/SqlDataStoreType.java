@@ -1,7 +1,7 @@
 /*
  * dataSet - Test Support For Data Stores.
  *
- * Copyright (C) 2014-2014 Marko Umek (http://fail-early.com/contact)
+ * Copyright (C) 2014-2015 Marko Umek (http://fail-early.com/contact)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,17 +18,17 @@
  */
 package org.failearly.dataset.datastore.sql;
 
-import org.failearly.dataset.DataStoreDefinition;
+import org.failearly.dataset.AdhocDataStore;
 import org.failearly.dataset.datastore.DataStore;
 import org.failearly.dataset.datastore.DataStoreType;
 import org.failearly.dataset.datastore.sql.internal.SqlDataStores;
 
 /**
- * SqlDataStoreType could be used for {@link org.failearly.dataset.DataStoreDefinition#type()}.
+ * SqlDataStoreType could be used for {@link AdhocDataStore#type()}.
  */
 public final class SqlDataStoreType implements DataStoreType {
     @Override
-    public DataStore createDataStore(DataStoreDefinition annotation, Object context) {
+    public DataStore createDataStore(AdhocDataStore annotation, Object context) {
         return SqlDataStores.createDataStore(annotation);
     }
 }

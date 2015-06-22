@@ -58,7 +58,7 @@ import static org.hamcrest.Matchers.*;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = SqlDataStoreTypeTest.Config.class)
 // dataSet annotations
-@DataStoreDefinition(setupSuffix = "setup.sql", cleanupSuffix = "cleanup.sql")
+@AdhocDataStore(setupSuffix = "setup.sql", cleanupSuffix = "cleanup.sql")
 @DataStoreSetup(setup = "H2-Test-DB-schema.sql", failOnError = false)
 public class SqlDataStoreTypeTest extends AbstractDataSetTest {
 

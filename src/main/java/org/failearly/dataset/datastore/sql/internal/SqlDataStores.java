@@ -1,7 +1,7 @@
 /*
  * dataSet - Test Support For Data Stores.
  *
- * Copyright (C) 2014-2014 Marko Umek (http://fail-early.com/contact)
+ * Copyright (C) 2014-2015 Marko Umek (http://fail-early.com/contact)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,7 +18,7 @@
  */
 package org.failearly.dataset.datastore.sql.internal;
 
-import org.failearly.dataset.DataStoreDefinition;
+import org.failearly.dataset.AdhocDataStore;
 import org.failearly.dataset.datastore.DataStore;
 import org.failearly.dataset.datastore.DataStoreBase;
 import org.failearly.dataset.datastore.sql.SqlDataStore;
@@ -37,7 +37,7 @@ public final class SqlDataStores {
         return sqlDataStore;
     }
 
-    public static DataStore createDataStore(DataStoreDefinition annotation) {
+    public static DataStore createDataStore(AdhocDataStore annotation) {
         return new SqlDataStoreDriverManager(annotation.id(), annotation.config());
     }
 }
