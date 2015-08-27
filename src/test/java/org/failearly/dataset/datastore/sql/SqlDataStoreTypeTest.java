@@ -91,7 +91,7 @@ public class SqlDataStoreTypeTest extends AbstractDataSetTest {
 
     @Test
     @DataSet(setup = "SqlDataStoreTest-testAlias.setup.sql.vm", cleanup = "SqlDataStoreTest-testAlias.cleanup.sql")
-    @RangeGenerator(name = "id", limit = Limit.UNLIMITED, start = 1)
+    @RangeGenerator(name = "id", limit = Limit.UNLIMITED, from= 1)
     @ListGenerator(name = "user", values = {"Marko", "Loddar", "Frodo"})
     @ListGenerator(name = "alias", values = {"Kurt", "Bodo", "Bilbo"})
     public void testAlias() throws Exception {

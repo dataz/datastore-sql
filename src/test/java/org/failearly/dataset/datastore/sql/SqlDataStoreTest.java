@@ -16,6 +16,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
+
 package org.failearly.dataset.datastore.sql;
 
 import org.failearly.dataset.*;
@@ -93,7 +94,7 @@ public class SqlDataStoreTest extends AbstractDataSetTest {
 
     @Test
     @DataSet(setup = "SqlDataStoreTest-testAlias.setup.sql.vm", cleanup = "SqlDataStoreTest-testAlias.cleanup.sql")
-    @RangeGenerator(name = "id", limit = Limit.UNLIMITED, start = 1)
+    @RangeGenerator(name = "id", limit = Limit.UNLIMITED, from= 1)
     @ListGenerator(name = "user", values = {"Marko", "Loddar", "Frodo"})
     @ListGenerator(name = "alias", values = {"Kurt", "Bodo", "Bilbo"})
     public void useDataSetWithSettings() throws Exception {
