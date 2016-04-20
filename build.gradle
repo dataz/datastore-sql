@@ -20,7 +20,8 @@
 dependencies {
     compile project(':dataset')
 
-    testCompile project(':common-test')
+    testCompile project(':dataset-common-test')
+
     // compile group: 'org.failearly.dataset', name: 'dataset-core', version: '+'
     testCompile group: 'com.h2database', name:'h2', version: '1.4.+'
     testCompile group: 'org.springframework', name: 'spring-core', version: '4.1.1.RELEASE'
