@@ -1,7 +1,7 @@
 /*
- * dataSet - Test Support For Data Stores.
+ * dataZ - Test Support For Data Stores.
  *
- * Copyright (C) 2014-2014 Marko Umek (http://fail-early.com/contact)
+ * Copyright (C) 2014-2016 marko (http://fail-early.com)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -15,6 +15,7 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
+ *
  */
 package org.failearly.dataset.datastore.sql.internal;
 
@@ -36,8 +37,8 @@ public abstract class AbstractSqlDataStore extends SimpleFileTransactionalSuppor
     public static final String DATASTORE_SQL_USER = "jdbc.user";
     public static final String DATASTORE_SQL_PASSWORD = "jdbc.password";
 
-    protected AbstractSqlDataStore(String dataStoreId, String dataStoreConfig) {
-        super(dataStoreId, dataStoreConfig);
+    protected AbstractSqlDataStore(String dataStoreId, String dataStoreConfigFile) {
+        super(dataStoreId, dataStoreConfigFile);
     }
 
     protected AbstractSqlDataStore() {

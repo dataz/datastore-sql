@@ -1,7 +1,7 @@
 /*
- * dataSet - Test Support For Data Stores.
+ * dataZ - Test Support For Data Stores.
  *
- * Copyright (C) 2014-2015 Marko Umek (http://fail-early.com/contact)
+ * Copyright (C) 2014-2016 marko (http://fail-early.com)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -15,13 +15,17 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
+ *
  */
 package org.failearly.dataset.datastore.sql.internal;
 
+import org.failearly.common.test.ClassLoader;
+import org.failearly.common.test.ExtendedProperties;
 import org.failearly.dataset.datastore.sql.internal.connection.ConnectionHolder;
-import org.failearly.dataset.util.*;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.Driver;
+import java.sql.DriverManager;
 
 /**
  * A SQL DataStore Implementation based on {@link java.sql.DriverManager}.
@@ -31,17 +35,17 @@ public final class SqlDataStoreDriverManager extends AbstractSqlDataStore {
     private String url;
     private ConnectionHolder connectionHolder;
 
-    SqlDataStoreDriverManager(String dataStoreId, String dataStoreConfig) {
-        super(dataStoreId, dataStoreConfig);
+    SqlDataStoreDriverManager(String dataStoreId, String dataStoreConfigFile) {
+        super(dataStoreId, dataStoreConfigFile);
     }
 
     @Override
-    protected void doInitialize(ExtendedProperties properties) {
+    protected void doEstablishConnection(ExtendedProperties properties) {
         final String driverClass = properties.getMandatoryProperty(DATASTORE_SQL_DRIVER);
         this.url = properties.getMandatoryProperty(DATASTORE_SQL_URL);
         final String user = properties.getProperty(DATASTORE_SQL_USER,"");
         final String password = properties.getProperty(DATASTORE_SQL_PASSWORD,"");
-        org.failearly.dataset.util.ClassLoader.loadClass(Driver.class, driverClass);
+        ClassLoader.loadClass(Driver.class, driverClass);
         connectionHolder=ConnectionHolder.create(
                 with.producer("Get connection to url=" + url + ", user='" + user + "'", () -> DriverManager.getConnection(url, user, password))
             );
