@@ -17,12 +17,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-package org.failearly.dataset.datastore.sql.internal;
+package org.failearly.dataz.datastore.sql.internal;
 
-import org.failearly.dataset.AdhocDataStore;
-import org.failearly.dataset.datastore.DataStore;
-import org.failearly.dataset.datastore.DataStoreBase;
-import org.failearly.dataset.datastore.sql.SqlDataStore;
+import org.failearly.dataz.AdhocDataStore;
+import org.failearly.dataz.datastore.DataStore;
+import org.failearly.dataz.datastore.DataStoreBase;
+import org.failearly.dataz.datastore.sql.SqlDataStore;
 
 /**
  * SqlDataStores is a factory for creating the actually

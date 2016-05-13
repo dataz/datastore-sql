@@ -17,18 +17,18 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-package org.failearly.dataset.datastore.sql;
+package org.failearly.dataz.datastore.sql;
 
-import org.failearly.dataset.*;
-import org.failearly.dataset.config.Constants;
-import org.failearly.dataset.datastore.DataStore;
-import org.failearly.dataset.datastore.DataStores;
-import org.failearly.dataset.datastore.sql.internal.AbstractSqlDataStore;
-import org.failearly.dataset.datastore.sql.internal.SqlDataStoreDriverManager;
-import org.failearly.dataset.template.generator.Limit;
-import org.failearly.dataset.template.generator.ListGenerator;
-import org.failearly.dataset.template.generator.RangeGenerator;
-import org.failearly.dataset.junit4.AbstractDataSetTest;
+import org.failearly.dataz.*;
+import org.failearly.dataz.config.Constants;
+import org.failearly.dataz.datastore.DataStore;
+import org.failearly.dataz.datastore.DataStores;
+import org.failearly.dataz.datastore.sql.internal.AbstractSqlDataStore;
+import org.failearly.dataz.datastore.sql.internal.SqlDataStoreDriverManager;
+import org.failearly.dataz.template.generator.Limit;
+import org.failearly.dataz.template.generator.ListGenerator;
+import org.failearly.dataz.template.generator.RangeGenerator;
+import org.failearly.dataz.junit4.AbstractDataSetTest;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -78,7 +78,7 @@ public class SqlDataStoreTest extends AbstractDataSetTest {
     public void defaultSqlDataStore() throws Exception {
         final DataStore dataStore = DataStores.getDefaultDataStore(this.getClass());
         assertThat("Associated DataStore type?", dataStore, is(instanceOf(SqlDataStoreDriverManager.class)));
-        assertThat("DataStore ID?", dataStore.getId(), is(Constants.DATASET_DEFAULT_DATASTORE_ID));
+        assertThat("DataStore ID?", dataStore.getId(), is(Constants.DATAZ_DEFAULT_DATASTORE_ID));
         assertThat("DataStore config?", dataStore.getConfigFile(), is("/sql-datastore.properties"));
         assertThat("DataStore setup suffix?", dataStore.getSetupSuffix(), is("setup.sql"));
         assertThat("DataStore cleanup suffix?", dataStore.getCleanupSuffix(), is("cleanup.sql"));

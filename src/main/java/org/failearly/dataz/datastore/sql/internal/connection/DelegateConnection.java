@@ -17,7 +17,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-package org.failearly.dataset.datastore.sql.internal.connection;
+package org.failearly.dataz.datastore.sql.internal.connection;
 
 import java.sql.*;
 import java.sql.Connection;

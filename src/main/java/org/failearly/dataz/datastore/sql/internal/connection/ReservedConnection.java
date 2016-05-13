@@ -17,7 +17,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-package org.failearly.dataset.datastore.sql.internal.connection;
+package org.failearly.dataz.datastore.sql.internal.connection;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -25,7 +25,7 @@ import java.sql.Statement;
 
 /**
  * ReservedConnection wraps the actually connection and override {@link #close()}  for returning the actually connection to
- * the {@link org.failearly.dataset.datastore.sql.internal.connection.ConnectionHolder}.
+ * the {@link org.failearly.dataz.datastore.sql.internal.connection.ConnectionHolder}.
  */
 final class ReservedConnection extends DelegateConnection {
 

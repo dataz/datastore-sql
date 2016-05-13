@@ -17,11 +17,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-package org.failearly.dataset.datastore.sql.internal;
+package org.failearly.dataz.datastore.sql.internal;
 
-import org.failearly.dataset.datastore.support.SimpleFileTransactionalSupportDataStoreBase;
-import org.failearly.dataset.resource.DataResource;
-import org.failearly.dataset.simplefile.SimpleFileStatement;
+import org.failearly.dataz.datastore.support.SimpleFileTransactionalSupportDataStoreBase;
+import org.failearly.dataz.resource.DataResource;
+import org.failearly.dataz.simplefile.SimpleFileStatement;
 
 import java.sql.Connection;
 import java.sql.SQLException;

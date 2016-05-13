@@ -17,19 +17,18 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-package org.failearly.dataset.datastore.sql;
+package org.failearly.dataz.datastore.sql.internal;
 
-import org.failearly.dataset.AdhocDataStore;
-import org.failearly.dataset.datastore.DataStore;
-import org.failearly.dataset.datastore.DataStoreType;
-import org.failearly.dataset.datastore.sql.internal.SqlDataStores;
+import org.failearly.dataz.datastore.DataStore;
+import org.failearly.dataz.datastore.DataStoreFactory;
+import org.failearly.dataz.datastore.sql.SqlDataStore;
 
 /**
- * SqlDataStoreType could be used for {@link AdhocDataStore#type()}.
+ * SqlDataStoreFactory is responsible for ...
  */
-public final class SqlDataStoreType implements DataStoreType {
+public final class SqlDataStoreFactory implements DataStoreFactory<SqlDataStore> {
     @Override
-    public DataStore createDataStore(AdhocDataStore annotation, Object context) {
+    public DataStore createDataStore(SqlDataStore annotation, Object context) {
         return SqlDataStores.createDataStore(annotation);
     }
 }

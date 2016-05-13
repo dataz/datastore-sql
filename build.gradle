@@ -19,11 +19,11 @@
 
 
 dependencies {
-    compile project(':dataset')
+    compile project(':dataz-core')
 
-    testCompile project(':dataset-common-test')
+    testCompile project(':dataz-common-test')
 
-    // compile group: 'org.failearly.dataset', name: 'dataset-core', version: '+'
+    // compile group: 'org.failearly.dataz', name: 'dataz-core', version: '+'
     testCompile group: 'com.h2database', name:'h2', version: '1.4.+'
     testCompile group: 'org.springframework', name: 'spring-core', version: '4.1.1.RELEASE'
     testCompile group: 'org.springframework', name: 'spring-context', version: '4.1.1.RELEASE'
