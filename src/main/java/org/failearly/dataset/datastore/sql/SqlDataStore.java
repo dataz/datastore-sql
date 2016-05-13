@@ -21,7 +21,7 @@ package org.failearly.dataset.datastore.sql;
 
 import org.failearly.dataset.AdhocDataStore;
 import org.failearly.dataset.config.Constants;
-import org.failearly.dataset.datastore.DataStoreFactoryDefinition;
+import org.failearly.dataset.datastore.DataStoreFactory;
 import org.failearly.dataset.datastore.sql.internal.SqlDataStoreFactory;
 
 import java.lang.annotation.*;
@@ -33,7 +33,7 @@ import java.lang.annotation.*;
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 @Repeatable(SqlDataStore.SqlDataStores.class)
-@DataStoreFactoryDefinition(factory = SqlDataStoreFactory.class)
+@DataStoreFactory.Definition(SqlDataStoreFactory.class)
 public @interface SqlDataStore {
     /**
      * If your tests uses multiple data stores, you must identify each data store.
