@@ -19,8 +19,10 @@
 
 package org.failearly.dataz.datastore.sql.internal;
 
-import org.failearly.common.test.ClassLoader;
-import org.failearly.common.test.ExtendedProperties;
+import org.failearly.common.classutils.ClassLoader;
+import org.failearly.common.proputils.PropertiesAccessor;
+import org.failearly.dataz.NamedDataStore;
+import org.failearly.dataz.datastore.sql.SqlDataStore;
 import org.failearly.dataz.datastore.sql.internal.connection.ConnectionHolder;
 
 import java.sql.Connection;
@@ -32,19 +34,20 @@ import java.sql.DriverManager;
  */
 public final class SqlDataStoreDriverManager extends AbstractSqlDataStore {
 
+    private static final String NO_PASSWORD = "";
     private String url;
     private ConnectionHolder connectionHolder;
 
-    SqlDataStoreDriverManager(String dataStoreId, String dataStoreConfigFile) {
-        super(dataStoreId, dataStoreConfigFile);
+    SqlDataStoreDriverManager(Class<? extends NamedDataStore> namedDataStore, SqlDataStore annotation) {
+        super(namedDataStore, annotation);
     }
 
     @Override
-    protected void doEstablishConnection(ExtendedProperties properties) {
+    protected void doEstablishConnection(PropertiesAccessor properties) {
         final String driverClass = properties.getMandatoryProperty(DATASTORE_SQL_DRIVER);
         this.url = properties.getMandatoryProperty(DATASTORE_SQL_URL);
-        final String user = properties.getProperty(DATASTORE_SQL_USER,"");
-        final String password = properties.getProperty(DATASTORE_SQL_PASSWORD,"");
+        final String user = properties.getStringValue(DATASTORE_SQL_USER, NO_PASSWORD);
+        final String password = properties.getStringValue(DATASTORE_SQL_PASSWORD, NO_PASSWORD);
         ClassLoader.loadClass(Driver.class, driverClass);
         connectionHolder=ConnectionHolder.create(
                 with.producer("Get connection to url=" + url + ", user='" + user + "'", () -> DriverManager.getConnection(url, user, password))

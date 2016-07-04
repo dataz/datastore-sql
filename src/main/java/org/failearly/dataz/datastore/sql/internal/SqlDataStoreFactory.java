@@ -20,7 +20,9 @@
 package org.failearly.dataz.datastore.sql.internal;
 
 import org.failearly.dataz.datastore.DataStore;
+import org.failearly.dataz.datastore.DataStoreBase;
 import org.failearly.dataz.datastore.DataStoreFactory;
+import org.failearly.dataz.NamedDataStore;
 import org.failearly.dataz.datastore.sql.SqlDataStore;
 
 /**
@@ -28,7 +30,8 @@ import org.failearly.dataz.datastore.sql.SqlDataStore;
  */
 public final class SqlDataStoreFactory implements DataStoreFactory<SqlDataStore> {
     @Override
-    public DataStore createDataStore(SqlDataStore annotation, Object context) {
-        return SqlDataStores.createDataStore(annotation);
+    public DataStore createDataStore(Class<? extends NamedDataStore> namedDataStore, SqlDataStore dataStoreAnnotation) {
+        final DataStoreBase sqlDataStore = new SqlDataStoreDriverManager(namedDataStore, dataStoreAnnotation);
+        return sqlDataStore;
     }
 }

@@ -26,7 +26,7 @@ import org.slf4j.LoggerFactory;
 import java.sql.Connection;
 
 /**
- * ConnectionHolder protects the connection instance against access of multiple threads.
+ * ConnectionHolder protects the connection instance against reserve of multiple threads.
  */
 public class ConnectionHolder {
 

@@ -19,7 +19,7 @@
 
 package org.failearly.dataz.datastore.sql;
 
-import org.failearly.dataz.AdhocDataStore;
+import org.failearly.dataz.common.Property;
 import org.failearly.dataz.config.Constants;
 import org.failearly.dataz.datastore.DataStoreFactory;
 import org.failearly.dataz.datastore.sql.internal.SqlDataStoreFactory;
@@ -33,40 +33,35 @@ import java.lang.annotation.*;
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 @Repeatable(SqlDataStore.SqlDataStores.class)
-@DataStoreFactory.Definition(SqlDataStoreFactory.class)
+@DataStoreFactory.Definition(factory = SqlDataStoreFactory.class)
 public @interface SqlDataStore {
     /**
      * If your tests uses multiple data stores, you must identify each data store.
      *
      * @return the (unique) data store id.
      */
-    String id() default Constants.DATAZ_DEFAULT_DATASTORE_ID;
+    String name() default Constants.DATAZ_DEFAULT_DATASTORE_NAME;
 
     /**
-     * The datastore configuration file will be used by the actually DataStore Implementation. So what's inside these configuration property file depends
-     * on the DataStore type.
+     * The datastore (optional) configuration file will be used by the actually DataStore Implementation. So what's inside these configuration property file depends
+     * on the DataStore type. Could be overwritten by {@link #properties()}.
      *
      * @return the datastore configuration file(name).
+     *
+     * @see #properties()
      */
-    String config() default "/sql-datastore.properties";
+    String config() default Constants.DATAZ_NO_CONFIG_FILE;
 
     /**
-     * Default suffix for setup resource files.
+     * Optional properties or named arguments (key value pairs). Overwrites the {@link #config()}.
      *
-     * @return suffix to be used for {@link org.failearly.dataz.DataSet#setup()} (if no setup resource is specified).
+     * @return an array of {@link Property}.
      *
-     * @see AdhocDataStore#setupSuffix()
+     * @see #config()
+     * @see SqlConfigProperties
      */
-    String setupSuffix() default "setup.sql";
+    Property[] properties() default {};
 
-    /**
-     * Default suffix for cleanup resource files.
-     *
-     * @return suffix to be used for {@link org.failearly.dataz.DataSet#cleanup()} (if no cleanup resource is specified).
-     *
-     * @see AdhocDataStore#cleanupSuffix()
-     */
-    String cleanupSuffix() default "cleanup.sql";
 
     /**
      * Containing Annotation Type.

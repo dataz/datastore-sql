@@ -19,10 +19,13 @@
 
 package org.failearly.dataz.datastore.sql.internal;
 
+import org.failearly.dataz.NamedDataStore;
+import org.failearly.dataz.datastore.sql.SqlConfigProperties;
 import org.failearly.dataz.datastore.support.SimpleFileTransactionalSupportDataStoreBase;
 import org.failearly.dataz.resource.DataResource;
 import org.failearly.dataz.simplefile.SimpleFileStatement;
 
+import java.lang.annotation.Annotation;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -30,18 +33,10 @@ import java.sql.Statement;
 /**
  * AbstractSqlDataStore is responsible for ...
  */
-public abstract class AbstractSqlDataStore extends SimpleFileTransactionalSupportDataStoreBase<Statement> {
+public abstract class AbstractSqlDataStore extends SimpleFileTransactionalSupportDataStoreBase<Statement> implements SqlConfigProperties {
 
-    public static final String DATASTORE_SQL_DRIVER = "jdbc.driver";
-    public static final String DATASTORE_SQL_URL = "jdbc.url";
-    public static final String DATASTORE_SQL_USER = "jdbc.user";
-    public static final String DATASTORE_SQL_PASSWORD = "jdbc.password";
-
-    protected AbstractSqlDataStore(String dataStoreId, String dataStoreConfigFile) {
-        super(dataStoreId, dataStoreConfigFile);
-    }
-
-    protected AbstractSqlDataStore() {
+    protected AbstractSqlDataStore(Class<? extends NamedDataStore> namedDataStore, Annotation dataStoreAnnotation) {
+        super(namedDataStore, dataStoreAnnotation);
     }
 
     private static Connection getConnectionFromCurrentStatement(Statement statement) {
