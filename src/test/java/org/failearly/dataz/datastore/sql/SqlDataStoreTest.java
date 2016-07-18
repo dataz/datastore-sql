@@ -24,7 +24,6 @@ import org.failearly.dataz.NoDataSet;
 import org.failearly.dataz.config.Constants;
 import org.failearly.dataz.datastore.DataStore;
 import org.failearly.dataz.datastore.sql.internal.SqlDataStoreDriverManager;
-import org.failearly.dataz.junit4.AbstractDataSetTest;
 import org.failearly.dataz.template.generator.Limit;
 import org.failearly.dataz.template.generator.ListGenerator;
 import org.failearly.dataz.template.generator.RangeGenerator;
@@ -64,7 +63,7 @@ import static org.junit.Assert.assertThat;
 // dataSet annotations
 @Ignore("New tests for SqlDataStore")
 // TODO: New tests for SqlDataStore (use NamedDataStore)
-public class SqlDataStoreTest extends AbstractDataSetTest {
+public class SqlDataStoreTest {
 
     @Autowired
     private JdbcTemplate jdbcTemplate;
@@ -78,7 +77,7 @@ public class SqlDataStoreTest extends AbstractDataSetTest {
     @NoDataSet
     public void defaultSqlDataStore() throws Exception {
 
-        final DataStore dataStore = Mockito.mock(DataStore.class); // DataStores.getDefaultDataStore(this.getClass());
+        final DataStore dataStore = Mockito.mock(DataStore.class); // DataStores.getDefaultNamedDataStore(this.getClass());
         assertThat("Associated DataStore type?", dataStore, is(instanceOf(SqlDataStoreDriverManager.class)));
         assertThat("DataStore Name?", dataStore.getName(), is(Constants.DATAZ_DEFAULT_DATASTORE_NAME));
         assertThat("DataStore config?", dataStore.getConfigFile(), is("/sql-datastore.properties"));

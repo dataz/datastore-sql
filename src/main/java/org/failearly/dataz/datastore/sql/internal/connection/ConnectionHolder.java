@@ -19,7 +19,7 @@
 
 package org.failearly.dataz.datastore.sql.internal.connection;
 
-import org.failearly.common.test.With;
+import org.failearly.dataz.internal.util.With;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -28,6 +28,7 @@ import java.sql.Connection;
 /**
  * ConnectionHolder protects the connection instance against reserve of multiple threads.
  */
+@Deprecated
 public class ConnectionHolder {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ConnectionHolder.class);

@@ -26,13 +26,13 @@ import org.mockito.Mockito;
 
 import java.sql.Connection;
 
-import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 
 /**
  * ConnectionHolderTest contains tests for ... .
  */
+@Deprecated
 public class ConnectionHolderTest {
 
     private final Connection connection=Mockito.mock(Connection.class);
