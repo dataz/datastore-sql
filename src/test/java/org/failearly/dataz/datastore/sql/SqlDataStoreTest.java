@@ -23,7 +23,7 @@ import org.failearly.dataz.DataSet;
 import org.failearly.dataz.NoDataSet;
 import org.failearly.dataz.config.Constants;
 import org.failearly.dataz.datastore.DataStore;
-import org.failearly.dataz.datastore.sql.internal.SqlDataStoreDriverManager;
+import org.failearly.dataz.datastore.sql.internal.SqlDataStoreImplementation;
 import org.failearly.dataz.template.generator.Limit;
 import org.failearly.dataz.template.generator.ListGenerator;
 import org.failearly.dataz.template.generator.RangeGenerator;
@@ -78,7 +78,7 @@ public class SqlDataStoreTest {
     public void defaultSqlDataStore() throws Exception {
 
         final DataStore dataStore = Mockito.mock(DataStore.class); // DataStores.getDefaultNamedDataStore(this.getClass());
-        assertThat("Associated DataStore type?", dataStore, is(instanceOf(SqlDataStoreDriverManager.class)));
+        assertThat("Associated DataStore type?", dataStore, is(instanceOf(SqlDataStoreImplementation.class)));
         assertThat("DataStore Name?", dataStore.getName(), is(Constants.DATAZ_DEFAULT_DATASTORE_NAME));
         assertThat("DataStore config?", dataStore.getConfigFile(), is("/sql-datastore.properties"));
     }
