@@ -12,8 +12,8 @@
 
 package org.failearly.dataz.datastore.sql.internal;
 
-import org.failearly.common.classutils.ClassLoader;
-import org.failearly.common.proputils.PropertiesAccessor;
+import org.failearly.dataz.internal.common.classutils.ClassLoader;
+import org.failearly.dataz.internal.common.proputils.PropertiesAccessor;
 import org.failearly.dataz.NamedDataStore;
 import org.failearly.dataz.datastore.DataStoreBase;
 import org.failearly.dataz.datastore.DataStoreException;
