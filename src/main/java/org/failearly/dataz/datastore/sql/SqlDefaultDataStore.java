@@ -32,9 +32,23 @@ import org.failearly.dataz.NamedDataStore;
  *
  * @see SqlConfigProperties
  */
+@SuppressWarnings("WeakerAccess")
 @SqlDataStore(config = SqlDefaultDataStore.CONFIG_FILE)
 @DataSetup(name="scheme", value = SqlDefaultDataStore.SCHEME_FILE)
 public final class SqlDefaultDataStore extends NamedDataStore {
+    /**
+     * Contains the configuration for your default SQL datastore.
+     * 
+     * The expected properties could be found in {@link SqlConfigProperties}.
+     * 
+     * @see SqlConfigProperties
+     * @see SqlDataStore#config() 
+     */
     public static final String CONFIG_FILE="/sql-datastore.properties";
+
+    /**
+     * This SQL file will be executed each time the SQL Default Datastore will started.
+     * @see DataSetup
+     */
     public static final String SCHEME_FILE="/create-scheme.sql";
 }

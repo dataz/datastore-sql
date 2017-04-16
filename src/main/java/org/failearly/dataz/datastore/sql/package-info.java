@@ -10,4 +10,7 @@
  * http://www.eclipse.org/legal/epl-v10.html
  */
 
+/**
+ * The SQL datastore implementation.
+ */
 package org.failearly.dataz.datastore.sql;

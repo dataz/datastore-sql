@@ -12,6 +12,7 @@
 
 package org.failearly.dataz.datastore.sql;
 
+import org.failearly.dataz.NamedDataStore;
 import org.failearly.dataz.common.Property;
 import org.failearly.dataz.config.Constants;
 import org.failearly.dataz.datastore.DataStoreFactory;
@@ -20,8 +21,13 @@ import org.failearly.dataz.datastore.sql.internal.SqlDataStoreFactory;
 import java.lang.annotation.*;
 
 /**
- * SqlDataStore is responsible for ...
+ * The Datastore annotation for SQL based datastores.
+ *
+ * Assign in to your {@link NamedDataStore} class. A sample usage could be seen at {@link SqlDefaultDataStore}.
+ *
+ * @see SqlDefaultDataStore
  */
+@SuppressWarnings("unused")
 @Target({ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
